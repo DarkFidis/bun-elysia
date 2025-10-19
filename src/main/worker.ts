@@ -5,7 +5,7 @@ import { Workerable } from "./types/worker";
 export const worker: Workerable = {
   handleSignal: async (name) => {
     log.info(`received ${name} signal : stopping`);
-    await worker.shutdown();
+    await worker.shutdown(0);
   },
   run: async () => {
     const signals: NodeJS.Signals[] = ["SIGINT", "SIGTERM"];

@@ -4,12 +4,10 @@ import { log } from "../log";
 import { HttpError } from "../errors/http-error";
 
 export const errorMw = (app: Elysia) =>
-  app.onError(({ request, error, set }) => {
-    const { body } = request;
-    const bodyLog = body ? `\n Request body: ${JSON.stringify(body)}` : "";
+  app.onError(({ body, headers, params, query, request, error, set }) => {
     if (error instanceof HttpError) {
       log.error(
-        `💥 ${request.method} ${request.url} - ${error.statusCode} ${bodyLog}`,
+        `💥 ${request.method} ${request.url} - ${error.statusCode} \n${JSON.stringify({ body, headers, params, query }, null, 2)}`,
       );
       set.status = error.statusCode;
       return {
@@ -26,7 +24,7 @@ export const errorMw = (app: Elysia) =>
     } else {
       set.status = 500;
     }
-    log.error(`💥 ${request.method} ${request.url} - 500 ${bodyLog}`);
+    log.error(`💥 ${request.method} ${request.url} - 500 \n${JSON.stringify({ body, params, query }, null, 2)}`);
     return {
       code: "INTERNAL_ERROR",
       message: error.message || "Erreur interne du serveur ⚙️",
