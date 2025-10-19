@@ -1,11 +1,7 @@
-import { FastifyInstance, RouteOptions } from "fastify";
-import { Server as HttpServer } from "http";
-import { Server as HttpsServer } from "https";
 import { ServerOptions } from "https";
 import { Logger } from "winston";
 
 import { Serviceable } from "./service";
-import { AddressInfo } from "net";
 import { Elysia } from "elysia";
 
 export interface WebServerConfig {
@@ -38,7 +34,7 @@ export interface WebServerConfigProxy {
 export interface StaticWebServerable {
   defaultConfig: WebServerConfig;
 
-  new (log: Logger, routes: RouteOptions[]): WebServerable;
+  new (log: Logger, router: Elysia): WebServerable;
 }
 
 export interface WebServerable extends Serviceable<WebServerConfig> {

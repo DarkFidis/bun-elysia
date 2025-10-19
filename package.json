@@ -3,8 +3,8 @@
   "version": "1.0.50",
   "scripts": {
     "build": "bun build src/main/index.ts --outdir ./dist",
-    "lint": "bunx eslint . --ext .ts",
-    "lint:fix": "bunx eslint . --ext .ts --fix",
+    "lint": "eslint src --ext .ts",
+    "lint:fix": "eslint src --ext .ts --fix",
     "format": "bunx prettier --write .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch src/main/index.ts"
