@@ -14,6 +14,7 @@
 
 # production
 /build
+/dist
 
 # misc
 .DS_Store
@@ -29,6 +30,7 @@ yarn-error.log*
 .env.development.local
 .env.test.local
 .env.production.local
+.envrc.local
 
 # vercel
 .vercel
@@ -40,3 +42,7 @@ yarn-error.log*
 **/*.log
 package-lock.json
 **/*.bun
+
+# IDE files
+.idea/
+.vscode/

@@ -1,0 +1,6 @@
+log:
+  level: debug
+  name: Elysia template
+jwt:
+  tokenSecret: thisissecretdev
+  sessionDuration: 86400
