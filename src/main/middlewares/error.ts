@@ -15,14 +15,13 @@ export const errorMw = (app: Elysia) =>
         message: error.message,
       };
     }
-    console.log({ erreur : JSON.stringify(error, null, 2) });
-      if (error.code === 'VALIDATION') {
-          set.status = 400
-          return {
-              code: 'BAD_REQUEST',
-              message: `Invalid ${error.type} property`
-          }
-      }
+    if (error.code === "VALIDATION") {
+      set.status = 400;
+      return {
+        code: "BAD_REQUEST",
+        message: `Invalid ${error.type} property`,
+      };
+    }
     if (error.message === "NOT_FOUND") {
       set.status = 404;
       return {
@@ -32,7 +31,9 @@ export const errorMw = (app: Elysia) =>
     } else {
       set.status = 500;
     }
-    log.error(`💥 ${request.method} ${request.url} - 500 \n${JSON.stringify({ body, params, query }, null, 2)}`);
+    log.error(
+      `💥 ${request.method} ${request.url} - 500 \n${JSON.stringify({ body, params, query }, null, 2)}`,
+    );
     return {
       code: "INTERNAL_ERROR",
       message: error.message || "Erreur interne du serveur ⚙️",

@@ -1,5 +1,5 @@
 import { Elysia } from "elysia";
-import {UnauthorizedError} from "../errors/unauthorized-error";
+import { UnauthorizedError } from "../errors/unauthorized-error";
 
 export const authMw = (app: Elysia) =>
   app.onBeforeHandle(({ request, set }) => {
