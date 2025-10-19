@@ -15,6 +15,14 @@ export const errorMw = (app: Elysia) =>
         message: error.message,
       };
     }
+    console.log({ erreur : JSON.stringify(error, null, 2) });
+      if (error.code === 'VALIDATION') {
+          set.status = 400
+          return {
+              code: 'BAD_REQUEST',
+              message: `Invalid ${error.type} property`
+          }
+      }
     if (error.message === "NOT_FOUND") {
       set.status = 404;
       return {
