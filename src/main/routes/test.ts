@@ -1,27 +1,13 @@
 import { Elysia } from "elysia";
 import { z } from "zod";
 
-import { TeapotError } from "../errors/im-a-teapot.error";
+import {bodyMw, queryMw, requestMw} from "../middlewares/test";
 
 export const testRouter = new Elysia({ prefix: "/test" })
-  .get("/query", ({ query: { action } }) => {
-    if (action === "toto") {
-      throw new TeapotError();
-    }
-    return { action };
-  })
-  .get("/body", ({ status }) => {
-    return status(200, { message: "Hello World!" });
-  })
+  .get("/query", queryMw)
   .post(
     "/body",
-    ({ body: { foo }, set }) => {
-      if (foo === "baz") {
-        throw new TeapotError();
-      }
-      set.status = 201;
-      return { body: foo };
-    },
+    bodyMw,
     {
       body: z.object({
         foo: z.string(),
@@ -30,16 +16,7 @@ export const testRouter = new Elysia({ prefix: "/test" })
   )
   .get(
     "/request/:param",
-    ({ params, query, body, headers, url, ...others }) => {
-      return {
-        url,
-        body,
-        headers,
-        params,
-        query,
-        others,
-      };
-    },
+      requestMw,
     {
       params: z.object({
         param: z.string(),

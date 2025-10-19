@@ -5,7 +5,7 @@ import { ErrorCode, ErrorStatusCode } from "./http-error-codes";
 
 @staticImplements<StaticUnauthorizedErrorable>()
 class UnauthorizedError extends HttpError {
-  public static defaultMessage = "This action requires an authorization";
+  public static defaultMessage = "Unauthorized 🚫";
   constructor(
     message: string | Error = UnauthorizedError.defaultMessage,
     orig?: Error,
